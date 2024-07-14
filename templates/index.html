@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease and X-ray Prediction</title>
+</head>
+<body>
+    <h1>Heart Health Prediction Using Data and X-RAY</h1>
+    <form method="post" action="/predict" enctype="multipart/form-data">
+        
+        <label for="age">Enter Your Age:</label>
+        <input type="number" name="age" required><br>
+
+        <label for="sex">Enter Gender (0 for Female, 1 for Male):</label>
+        <input type="number" name="sex" required><br>
+
+        <label for="cp">Enter Chest Pain type (0-3):</label>
+        <input type="number" name="cp" required><br>
+
+        <label for="trtbps" id="trestbps">Enter Resting Blood Pressure:</label>
+        <input type="number" name="trtbps" required><br>
+
+        <label for="chol">Enter Serum Cholesterol Level:</label>
+        <input type="number" name="chol" required><br>
+
+        <label for="fbs">Enter Fasting Blood Sugar (0 for <= 120mg/dl, 1 for > 120mg/dl):</label>
+        <input type="number" name="fbs" required><br>
+
+        <label for="restecg">Enter Resting Electrocardiographic Results (0-2):</label>
+        <input type="number" name="restecg" required><br>
+
+        <label for="thalachh">Enter Maximum Heart Rate Achieved: </label>
+        <input type="number" name="thalachh" required><br>
+
+        <label for="exng">Enter Exercise Induced Angina (0 for no, 1 for yes): </label>
+        <input type="number" name="exng" required><br>
+
+        <label for="oldpeak">Enter ST Depression Induced by Exercise Relative to Rest:</label>
+        <input type="number" name="oldpeak" required><br>
+
+        <label for="slp">Enter Slope of the Peak Exercise ST Segment (0-2): </label>
+        <input type="number" name="slp" required><br>
+
+        <label for="caa">Enter No. of Major Vessels (0-3) Colored by Fluoroscopy:</label>
+        <input type="number" name="caa" required><br>
+
+        <label for="thall">Enter Thalassemia (0-3):</label>
+        <input type="number" name="thall" required><br>
+
+       
+        <label for="xray_image">Upload X-ray Image:</label>
+        <input type="file" name="xray_image" accept=".jpg, .jpeg, .png" required><br>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    <div class="image-preview">
+        <img id="uploaded-image" src="." alt="Image Preview">
+    </div>
+
+</body>
+</html>
+
+<style>
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    max-width: 800px;
+}
+
+form {
+    width: 60%;
+    box-sizing: border-box;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    height: 80%;
+    overflow-y: scroll;
+}
+
+.form-container, .image-preview {
+            box-sizing: border-box;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            overflow: hidden;
+        }
+
+h1 {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+input {
+    width: calc(100% - 12px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    margin: auto;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+input[type="file"] {
+    margin-top: 10px;
+}
+
+.image-preview {
+    width: 40%;
+    padding-left: 20px;
+}
+
+.image-preview img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+
+@media only screen and (max-width: 800px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    form {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .image-preview {
+        width: 100%;
+        padding-left: 0;
+    }
+}
+
+
+
+</style>
+
+
+<script>
+    function previewImage(input) {
+        var preview = document.getElementById('uploaded-image');
+        var file = input.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+    }
+
+   
+    window.onload = function() {
+        var xrayImageInput = document.querySelector('input[name="xray_image"]');
+        if (xrayImageInput) {
+            xrayImageInput.addEventListener('change', function() {
+                previewImage(this);
+            });
+        }
+    };
+</script>
